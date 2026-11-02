@@ -1,184 +1,362 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pour toi </title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #ffe6e6;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            overflow: hidden;
-            color: #4a4a4a;
-        }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pour Charlotte</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Hanken+Grotesk:wght@400;500;700&family=Young+Serif&display=swap">
+<style>
+  /* Layout: une seule colonne douce, alignée à gauche, façon carte faite main. Chaque section a une petite note manuscrite au-dessus du titre. */
+  :root {
+    color-scheme: light;
+    --bg: #FFF0F3;
+    --surface: #FFFFFF;
+    --surface-2: #FFE0E8;
+    --ink: #3B1630;
+    --ink-soft: #7A4A66;
+    --accent: #C2255C;
+    --accent-ink: #FFFFFF;
+    --lilac: #D9C8F0;
+    --sun: #FFC857;
+    --line: #F2C6D3;
+    --font-display: "Young Serif", Georgia, "Times New Roman", serif;
+    --font-body: "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-hand: "Caveat", "Segoe Script", "Bradley Hand", cursive;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1C0E1B;
+      --surface: #2B1829;
+      --surface-2: #3A2038;
+      --ink: #FCE7EF;
+      --ink-soft: #D1A9BF;
+      --accent: #FF7AA6;
+      --accent-ink: #2A0F1F;
+      --lilac: #6B4FA0;
+      --sun: #FFC857;
+      --line: #4D2D49;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1C0E1B;
+    --surface: #2B1829;
+    --surface-2: #3A2038;
+    --ink: #FCE7EF;
+    --ink-soft: #D1A9BF;
+    --accent: #FF7AA6;
+    --accent-ink: #2A0F1F;
+    --lilac: #6B4FA0;
+    --sun: #FFC857;
+    --line: #4D2D49;
+    color-scheme: dark;
+  }
 
-        .container {
-            text-align: center;
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            max-width: 400px;
-            width: 90%;
-            transition: all 0.5s ease;
-        }
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.55;
+    padding-block: 24px 72px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    overflow-x: clip;
+  }
+  .page { max-width: 640px; margin-inline: auto; display: flex; flex-direction: column; gap: 64px; }
+  h1, h2 { font-family: var(--font-display); font-weight: 400; text-wrap: balance; margin: 0; }
+  p { margin: 0; }
+  button { font: inherit; color: inherit; cursor: pointer; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
 
-        h2 {
-            color: #d63384;
-            margin-bottom: 20px;
-        }
+  .kicker { font-family: var(--font-hand); font-weight: 700; font-size: 1.5rem; line-height: 1; color: var(--accent); display: block; margin-bottom: 6px; }
+  h2 { font-size: 1.75rem; line-height: 1.15; }
+  .lead { color: var(--ink-soft); margin-top: 10px; max-width: 52ch; }
+  section { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
 
-        input[type="text"] {
-            width: 80%;
-            padding: 12px 20px;
-            margin: 10px 0;
-            border: 2px solid #ffb3c1;
-            border-radius: 25px;
-            font-size: 16px;
-            outline: none;
-            transition: border-color 0.3s;
-        }
+  /* Hero */
+  .hero { position: relative; gap: 20px; padding-top: 4px; }
+  .hero::before, .hero::after { content: ""; position: absolute; border-radius: 50%; z-index: -1; pointer-events: none; }
+  .hero::before { width: 260px; height: 260px; right: -90px; top: -60px; background: var(--surface-2); }
+  .hero::after { width: 120px; height: 120px; left: -50px; bottom: 10px; background: var(--lilac); opacity: .55; }
+  .hero-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+  .eyebrow { font-size: .8125rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); padding-top: 10px; }
+  h1 { font-size: clamp(2.4rem, 11.5vw, 4.1rem); line-height: 1.02; letter-spacing: -.01em; }
+  .name { position: relative; display: inline-block; color: var(--accent); }
+  .name svg { position: absolute; left: 0; bottom: -.14em; width: 100%; height: .22em; overflow: visible; }
+  .name path { fill: none; stroke: var(--sun); stroke-width: 5; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+  .hero-sub { font-family: var(--font-hand); font-weight: 500; font-size: 1.7rem; line-height: 1.15; color: var(--ink); max-width: 22ch; }
+  .candle-btn { background: none; border: 0; padding: 0; display: flex; flex-direction: column; align-items: center; gap: 4px; flex: none; }
+  .candle-btn svg { width: 104px; height: 124px; overflow: visible; }
+  .candle-hint { font-size: .8125rem; font-weight: 700; color: var(--ink-soft); max-width: 12ch; text-align: center; line-height: 1.25; }
+  .flame { transform-box: fill-box; transform-origin: 50% 100%; transition: opacity .35s, transform .35s; animation: flicker 1.3s ease-in-out infinite alternate; }
+  .out .flame { opacity: 0; transform: scale(.2); animation: none; }
+  .smoke { opacity: 0; fill: none; stroke: var(--ink-soft); stroke-width: 2.5; stroke-linecap: round; }
+  .out .smoke { animation: smoke 1.8s ease-out; }
+  @keyframes flicker { from { transform: scale(1, 1) rotate(-2deg); } to { transform: scale(.94, 1.07) rotate(2deg); } }
+  @keyframes smoke { 0% { opacity: .9; transform: translateY(0); } 100% { opacity: 0; transform: translateY(-18px); } }
 
-        input[type="text"]:focus {
-            border-color: #d63384;
-        }
+  /* Chips */
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; padding: 0; margin: 0; list-style: none; }
+  .chip {
+    min-height: 44px; padding: 9px 16px; border-radius: 999px; font-weight: 500;
+    background: var(--surface); color: var(--ink); border: 1.5px solid var(--line);
+    display: inline-flex; align-items: center; gap: 8px; text-align: left; transition: transform .15s, background .15s;
+  }
+  .chips li:nth-child(odd) .chip { rotate: -1.2deg; }
+  .chips li:nth-child(even) .chip { rotate: 1deg; }
+  .chip:hover { transform: translateY(-2px); }
+  .chip svg { width: 14px; height: 14px; flex: none; display: none; }
+  .chip.done, .chip[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  .chip.done svg, .chip[aria-pressed="true"] svg { display: block; }
+  .chip svg path { fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
 
-        button {
-            background-color: #d63384;
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            font-size: 16px;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-        }
+  /* Note panel */
+  .note {
+    position: relative; background: var(--surface); border: 1.5px solid var(--line); border-radius: 20px;
+    padding: 28px 22px 22px; min-height: 9.5rem; display: flex; align-items: center;
+  }
+  .note::before { content: ""; position: absolute; top: -11px; left: 28px; width: 76px; height: 22px; background: var(--sun); opacity: .85; rotate: -3deg; border-radius: 3px; }
+  .note p { font-family: var(--font-hand); font-weight: 500; font-size: 1.75rem; line-height: 1.22; }
+  .note p.empty { color: var(--ink-soft); }
+  .note p.pop { animation: pop .35s ease-out; }
+  @keyframes pop { from { opacity: 0; transform: translateY(6px) scale(.98); } to { opacity: 1; transform: none; } }
+  .progress { display: flex; flex-direction: column; gap: 8px; }
+  .progress-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; font-size: .9375rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .bar { height: 8px; border-radius: 99px; background: var(--surface-2); overflow: hidden; }
+  .bar span { display: block; height: 100%; width: 0; background: var(--accent); border-radius: 99px; transition: width .4s; }
+  .link-btn { background: none; border: 0; padding: 6px 0; color: var(--accent); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+  .secret { background: var(--accent); color: var(--accent-ink); border-radius: 20px; padding: 22px; }
+  .secret .kicker { color: var(--accent-ink); opacity: .9; }
+  .secret p:last-child { font-family: var(--font-display); font-size: 1.4rem; line-height: 1.25; }
 
-        button:hover {
-            background-color: #b8216b;
-            transform: scale(1.05);
-        }
-        .surprise-zone {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
+  /* Letter */
+  .letter { background: var(--surface); border: 1.5px solid var(--line); border-radius: 20px; padding: 26px 22px; display: flex; flex-direction: column; gap: 16px; max-width: 100%; }
+  .letter p { max-width: 60ch; }
+  .letter .salut { font-family: var(--font-display); font-size: 1.5rem; line-height: 1.2; }
+  .letter .sign { font-family: var(--font-hand); font-weight: 700; font-size: 1.9rem; color: var(--accent); line-height: 1; }
 
-        .message-marraine {
-            font-size: 18px;
-            color: #b8216b;
-            font-weight: bold;
-            margin-bottom: 20px;
-            animation: fadeIn 1s ease;
-        }
+  /* Wish form */
+  textarea {
+    width: 100%; min-height: 112px; resize: vertical; padding: 14px 16px; border-radius: 16px;
+    border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); font: inherit; font-size: 1rem; line-height: 1.5;
+  }
+  textarea::placeholder { color: var(--ink-soft); opacity: .8; }
+  label.field { font-weight: 700; font-size: .9375rem; display: block; margin-bottom: 8px; }
+  .btn { min-height: 48px; padding: 12px 24px; border-radius: 999px; border: 1.5px solid var(--accent); background: var(--accent); color: var(--accent-ink); font-weight: 700; align-self: flex-start; }
+  .btn.ghost { background: transparent; color: var(--accent); }
+  .btn:disabled { opacity: .6; cursor: default; }
+  .status { min-height: 1.5em; font-weight: 500; color: var(--ink-soft); }
+  .copy-box { display: flex; flex-direction: column; gap: 12px; padding: 16px; border-radius: 16px; background: var(--surface-2); }
+  .sent { padding: 0; margin: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .sent li { display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: 14px; background: var(--surface); border: 1.5px solid var(--line); overflow-wrap: anywhere; }
+  .sent svg { width: 18px; height: 18px; flex: none; margin-top: 3px; }
+  .sent svg path { fill: none; stroke: var(--accent); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+  .sent small { display: block; color: var(--ink-soft); font-weight: 700; font-size: .75rem; letter-spacing: .06em; text-transform: uppercase; }
 
-        /* Dessin du cœur en CSS */
-        .heart {
-            background-color: #d63384;
-            display: inline-block;
-            height: 100px;
-            margin: 50px 10px;
-            position: relative;
-            transform: rotate(-45deg);
-            width: 100px;
-            animation: beat 0.8s infinite alternate;
-        }
+  footer { text-align: left; }
+  footer .big { font-family: var(--font-hand); font-weight: 700; font-size: 2.2rem; color: var(--accent); line-height: 1.1; }
+  footer p + p { color: var(--ink-soft); font-size: .9375rem; margin-top: 4px; }
 
-        .heart:before,
-        .heart:after {
-            content: "";
-            background-color: #d63384;
-            border-radius: 50%;
-            height: 100px;
-            position: absolute;
-            width: 100px;
-        }
+  #confetti { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 20; }
 
-        .heart:before {
-            top: -50px;
-            left: 0;
-        }
+  @media (max-width: 420px) {
+    .candle-btn svg { width: 88px; height: 106px; }
+    .hero-sub { font-size: 1.55rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .flame, .out .smoke, .note p.pop { animation: none; }
+    .chip, .bar span { transition: none; }
+    html { scroll-behavior: auto; }
+  }
+</style>
 
-        .heart:after {
-            left: 50px;
-            top: 0;
-        }
-
-        .love-text {
-            font-size: 24px;
-            font-weight: bold;
-            color: #d63384;
-            margin-top: 20px;
-            animation: fadeIn 2s ease;
-        }
-
-        /* Animations */
-        @keyframes beat {
-            0% { transform: rotate(-45deg) scale(1); }
-            100% { transform: rotate(-45deg) scale(1.15); }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
 </head>
 <body>
+<canvas id="confetti" aria-hidden="true"></canvas>
 
-    <div class="container" id="mainCard">
-        <div id="formZone">
-            <h2>Bienvenue</h2>
-            <p>Quel est ton nom ?</p>
-            <input type="text" id="nameInput" placeholder="Écris ton nom ici..." autocomplete="off">
-            <br>
-            <button onclick="verifierNom()">Valider</button>
-        </div>
+<main class="page">
 
-        <div id="surpriseZone" class="surprise-zone">
-            <div id="marraineMessage" class="message-marraine"></div>
-            <div class="heart"></div>
-            <div class="love-text">Je t'aime mon amour</div>
-        </div>
+  <section class="hero" aria-labelledby="titre">
+    <div class="hero-top">
+      <span class="eyebrow">Une page rien que pour toi</span>
+      <button class="candle-btn" id="candle" type="button" aria-pressed="false" aria-label="Souffler la bougie">
+        <svg viewBox="0 0 100 120" id="cake" aria-hidden="true">
+          <g class="flame">
+            <path d="M50 4 C60 20 66 30 50 46 C34 30 40 20 50 4Z" fill="#FFC857"/>
+            <path d="M50 22 C55 30 57 36 50 44 C43 36 45 30 50 22Z" fill="#FF8FA8"/>
+          </g>
+          <path class="smoke" d="M50 44 C44 36 56 30 50 20"/>
+          <rect x="45" y="46" width="10" height="26" rx="3" fill="#D9C8F0"/>
+          <rect x="45" y="54" width="10" height="4" fill="#FFFFFF" opacity=".7"/>
+          <rect x="45" y="63" width="10" height="4" fill="#FFFFFF" opacity=".7"/>
+          <rect x="8" y="70" width="84" height="40" rx="12" fill="#C2255C"/>
+          <path d="M8 82 Q 20 94 33 82 T 58 82 T 83 82 T 92 84 L92 76 Q92 70 80 70 L20 70 Q8 70 8 76Z" fill="#FFE0E8"/>
+          <circle cx="26" cy="100" r="3" fill="#FFC857"/>
+          <circle cx="50" cy="102" r="3" fill="#FFC857"/>
+          <circle cx="74" cy="100" r="3" fill="#FFC857"/>
+        </svg>
+        <span class="candle-hint" id="candle-hint">Fais un vœu, puis souffle</span>
+      </button>
     </div>
+    <h1 id="titre">Joyeux anniversaire, <span class="name">Charlotte<svg viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 7 Q 27 -1 52 7 T 102 7 T 152 7 T 198 7"/></svg></span></h1>
+    <p class="hero-sub">J'ai caché douze petits mots pour toi plus bas. Touche-les un par un.</p>
+  </section>
 
-    <script>
-        function verifierNom() {
-            const nom = document.getElementById('nameInput').value.trim();
-            const formZone = document.getElementById('formZone');
-            const surpriseZone = document.getElementById('surpriseZone');
-            const marraineMessage = document.getElementById('marraineMessage');
+  <section aria-labelledby="mots-titre" id="mots">
+    <div>
+      <span class="kicker">Douze petits mots</span>
+      <h2 id="mots-titre">Ce que j'ai envie de te dire</h2>
+      <p class="lead">Chaque bouton cache une phrase. Ouvre-les tous, il y a une surprise à la fin.</p>
+    </div>
+    <ul class="chips" id="chips"></ul>
+    <div class="note" aria-live="polite"><p class="empty" id="note-text">Touche un mot ci-dessus, ta phrase apparaîtra ici.</p></div>
+    <div class="progress">
+      <div class="progress-row">
+        <span id="count">0 sur 12 ouverts</span>
+        <button class="link-btn" type="button" id="random">Surprends-moi</button>
+      </div>
+      <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="12" aria-valuenow="0" id="bar"><span></span></div>
+    </div>
+    <div class="secret" id="secret" hidden>
+      <span class="kicker">Le treizième mot</span>
+      <p>Tu les as tous ouverts. Alors voici le dernier : je t'aime, Charlotte, et je suis heureux de fêter ce jour avec toi.</p>
+    </div>
+  </section>
 
-            // On vérifie si le nom correspond à "Chacha" (sans faire attention aux majuscules/minuscules)
-            if (nom.toLowerCase() === "chacha") {
-                // Masquer le formulaire
-                formZone.style.display = "none";
-                
-                // Ajouter le message spécifique pour la marraine
-                marraineMessage.textContent = "Patiente un peu marraine...";
-                
-                // Afficher la surprise (Cœur + Message d'amour)
-                surpriseZone.style.display = "flex";
-            } else if (nom === "") {
-                alert("S'il te plaît, entre un nom !");
-            } else {
-                alert("Désolé, ce site est réservé à une personne spéciale.");
-            }
-        }
+  <section aria-labelledby="lettre-titre" id="lettre">
+    <div>
+      <span class="kicker">Une lettre</span>
+      <h2 id="lettre-titre">Quelques mots de moi</h2>
+    </div>
+    <article class="letter">
+      <p class="salut">Charlotte,</p>
+      <p>Aujourd'hui, le monde fête le jour où tu es arrivée, et il a bien raison.</p>
+      <p>Tu rends les choses simples plus jolies : un café, une balade, un silence à deux. Avec toi, je me sens chez moi, même quand on ne sait pas où on va.</p>
+      <p>Merci pour ta patience, ta douceur, ton humour, et pour tout ce que tu es quand tu crois que personne ne regarde.</p>
+      <p>Je te souhaite un anniversaire rempli de rires, de gâteau et de gens qui t'aiment. Je suis très fier d'être l'un d'eux.</p>
+      <p class="sign">Ton amoureux</p>
+    </article>
+  </section>
 
-        // Permet de valider en appuyant sur la touche Entrée
-        document.getElementById('nameInput').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                verifierNom();
-            }
-        });
-    </script>
+  <section aria-labelledby="voeu-titre" id="voeu">
+    <div>
+      <span class="kicker">C'est ton jour</span>
+      <h2 id="voeu-titre">Demande-moi ce que tu veux</h2>
+      <p class="lead">Choisis une envie, ou écris la tienne. Copie ta demande et envoie-la-moi.</p>
+    </div>
+    <ul class="chips" id="wish-chips"></ul>
+    <div>
+      <label class="field" for="wish-text">Ou écris-moi ta propre idée</label>
+      <textarea id="wish-text" placeholder="Par exemple : un dîner aux chandelles samedi soir"></textarea>
+    </div>
+    <button class="btn" type="button" id="send">Préparer ma demande</button>
+    <p class="status" id="status" role="status" aria-live="polite"></p>
+    <div class="copy-box" id="copy-box" hidden>
+      <label class="field" for="copy-text">Ta demande</label>
+      <textarea id="copy-text" readonly></textarea>
+      <button class="btn ghost" type="button" id="copy-btn">Copier ma demande</button>
+    </div>
+  </section>
 
-</body>
-</html>
+  <footer>
+    <p class="big">Je t'aime, Charlotte.</p>
+    <p>Joyeux anniversaire.</p>
+  </footer>
+
+</main>
+
+<script>
+(function () {
+  var $ = function (s) { return document.querySelector(s); };
+  var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var CHECK = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg>';
+
+  /* ---------- Confetti ---------- */
+  var canvas = $("#confetti"), ctx = canvas.getContext("2d"), parts = [], raf = 0;
+  function fit() {
+    var d = window.devicePixelRatio || 1;
+    canvas.width = Math.round(innerWidth * d);
+    canvas.height = Math.round(innerHeight * d);
+    ctx.setTransform(d, 0, 0, d, 0, 0);
+  }
+  function burst(el) {
+    if (reduce) return;
+    fit();
+    var r = el.getBoundingClientRect();
+    var ox = r.left + r.width / 2, oy = r.top + r.height / 3;
+    var cs = getComputedStyle(document.documentElement);
+    var cols = ["--accent", "--sun", "--lilac", "--ink-soft"].map(function (v) { return cs.getPropertyValue(v).trim() || "#C2255C"; });
+    for (var i = 0; i < 110; i++) {
+      var a = Math.random() * Math.PI * 2, s = 4 + Math.random() * 9;
+      parts.push({
+        x: ox, y: oy, vx: Math.cos(a) * s, vy: Math.sin(a) * s - 6,
+        w: 6 + Math.random() * 7, rot: Math.random() * 6, vr: (Math.random() - .5) * .4,
+        c: cols[i % cols.length], kind: i % 7 === 0 ? "heart" : (i % 3 === 0 ? "dot" : "rect"), life: 1
+      });
+    }
+    if (!raf) raf = requestAnimationFrame(tick);
+  }
+  function tick() {
+    ctx.clearRect(0, 0, innerWidth, innerHeight);
+    parts = parts.filter(function (p) { return p.life > 0 && p.y < innerHeight + 30; });
+    parts.forEach(function (p) {
+      p.vy += .32; p.vx *= .985; p.x += p.vx; p.y += p.vy; p.rot += p.vr; p.life -= .006;
+      ctx.save();
+      ctx.globalAlpha = Math.max(0, Math.min(1, p.life * 1.6));
+      ctx.translate(p.x, p.y); ctx.rotate(p.rot); ctx.fillStyle = p.c;
+      if (p.kind === "rect") ctx.fillRect(-p.w / 2, -p.w / 4, p.w, p.w / 2);
+      else if (p.kind === "dot") { ctx.beginPath(); ctx.arc(0, 0, p.w / 3, 0, 6.3); ctx.fill(); }
+      else { ctx.font = (p.w * 2) + "px sans-serif"; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillText("♥", 0, 0); }
+      ctx.restore();
+    });
+    if (parts.length) raf = requestAnimationFrame(tick);
+    else { raf = 0; ctx.clearRect(0, 0, innerWidth, innerHeight); }
+  }
+
+  /* ---------- Bougie ---------- */
+  var lit = true, candle = $("#candle");
+  candle.addEventListener("click", function () {
+    lit = !lit;
+    $("#cake").classList.toggle("out", !lit);
+    candle.setAttribute("aria-pressed", String(!lit));
+    $("#candle-hint").textContent = lit ? "Fais un vœu, puis souffle" : "Joyeux anniversaire, mon amour";
+    candle.setAttribute("aria-label", lit ? "Souffler la bougie" : "Rallumer la bougie");
+    if (!lit) burst(candle);
+  });
+
+  /* ---------- Les douze mots ---------- */
+  var MOTS = [
+    ["Ma personne préférée", "Parmi tous les gens du monde, c'est toi que je choisirais encore, chaque jour, sans hésiter."],
+    ["Ton sourire", "Ton sourire a un super pouvoir : il rend n'importe quelle journée plus douce."],
+    ["Mon endroit préféré", "Peu importe où on est, mon endroit préféré, c'est à côté de toi."],
+    ["Ton rire", "Ton rire, c'est mon son préféré. Je ferais n'importe quoi pour l'entendre plus souvent."],
+    ["Avec toi, tout est mieux", "Un plat simple, un film moyen, une route sans fin : avec toi, tout devient un bon souvenir."],
+    ["Tu me rends meilleur", "Depuis que je te connais, j'ai envie d'être une meilleure version de moi-même."],
+    ["Ma plus belle chance", "Si on me demandait ma plus grande chance dans la vie, je dirais ton prénom."],
+    ["Un câlin géant", "Je t'envoie le plus grand câlin du monde. Il est valable à vie et sans limite."],
+    ["Fais un vœu", "Ferme les yeux et fais un vœu. Je ferai tout pour qu'il se réalise."],
+    ["Un petit secret", "Je t'aime un peu plus chaque jour, et ça fait déjà beaucoup."],
+    ["Merci", "Merci d'être toi, simplement. Pour ta douceur, ta force et toutes les petites attentions que tu crois discrètes."],
+    ["Charlotte, ma Charlotte", "Dire ton prénom me fait toujours sourire. Alors je vais le répéter longtemps : Charlotte."]
+  ];
+  var KEY = "pour-charlotte-mots";
+  var opened = [];
+  try { opened = JSON.parse(localStorage.getItem(KEY) || "[]").filter(function (n) { return n >= 0 && n < MOTS.length; }); } catch (e) { opened = []; }
+  var chipList = $("#chips"), chipEls = [];
+  MOTS.forEach(function (m, i) {
+    var li = document.createElement("li");
+    var b = document.createElement("button");
+    b.type = "button"; b.className = "chip";
+    b.innerHTML = CHECK;
+    b.appendChild(document.createTextNode(m[0]));
+    b.addEventListener("click", function () { openMot(i, true); });
+    li.appendChild(b); chipList.appendChild(li); chipEls.push(b);
+  });
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(opened)); } catch (e) {} }
+  function refresh() {
+    chipEls.forEach(function (b, i) { b.classList.toggle("done", opened.indexOf(i) > -1); });
+    var n = opened.
