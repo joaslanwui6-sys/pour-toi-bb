@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pour toi </title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffe6e6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            color: #4a4a4a;
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 90%;
+            transition: all 0.5s ease;
+        }
+
+        h2 {
+            color: #d63384;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            width: 80%;
+            padding: 12px 20px;
+            margin: 10px 0;
+            border: 2px solid #ffb3c1;
+            border-radius: 25px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #d63384;
+        }
+
+        button {
+            background-color: #d63384;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #b8216b;
+            transform: scale(1.05);
+        }
+        .surprise-zone {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .message-marraine {
+            font-size: 18px;
+            color: #b8216b;
+            font-weight: bold;
+            margin-bottom: 20px;
+            animation: fadeIn 1s ease;
+        }
+
+        /* Dessin du cœur en CSS */
+        .heart {
+            background-color: #d63384;
+            display: inline-block;
+            height: 100px;
+            margin: 50px 10px;
+            position: relative;
+            transform: rotate(-45deg);
+            width: 100px;
+            animation: beat 0.8s infinite alternate;
+        }
+
+        .heart:before,
+        .heart:after {
+            content: "";
+            background-color: #d63384;
+            border-radius: 50%;
+            height: 100px;
+            position: absolute;
+            width: 100px;
+        }
+
+        .heart:before {
+            top: -50px;
+            left: 0;
+        }
+
+        .heart:after {
+            left: 50px;
+            top: 0;
+        }
+
+        .love-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: #d63384;
+            margin-top: 20px;
+            animation: fadeIn 2s ease;
+        }
+
+        /* Animations */
+        @keyframes beat {
+            0% { transform: rotate(-45deg) scale(1); }
+            100% { transform: rotate(-45deg) scale(1.15); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="mainCard">
+        <div id="formZone">
+            <h2>Bienvenue</h2>
+            <p>Quel est ton nom ?</p>
+            <input type="text" id="nameInput" placeholder="Écris ton nom ici..." autocomplete="off">
+            <br>
+            <button onclick="verifierNom()">Valider</button>
+        </div>
+
+        <div id="surpriseZone" class="surprise-zone">
+            <div id="marraineMessage" class="message-marraine"></div>
+            <div class="heart"></div>
+            <div class="love-text">Je t'aime mon amour</div>
+        </div>
+    </div>
+
+    <script>
+        function verifierNom() {
+            const nom = document.getElementById('nameInput').value.trim();
+            const formZone = document.getElementById('formZone');
+            const surpriseZone = document.getElementById('surpriseZone');
+            const marraineMessage = document.getElementById('marraineMessage');
+
+            // On vérifie si le nom correspond à "Chacha" (sans faire attention aux majuscules/minuscules)
+            if (nom.toLowerCase() === "chacha") {
+                // Masquer le formulaire
+                formZone.style.display = "none";
+                
+                // Ajouter le message spécifique pour la marraine
+                marraineMessage.textContent = "Patiente un peu marraine...";
+                
+                // Afficher la surprise (Cœur + Message d'amour)
+                surpriseZone.style.display = "flex";
+            } else if (nom === "") {
+                alert("S'il te plaît, entre un nom !");
+            } else {
+                alert("Désolé, ce site est réservé à une personne spéciale.");
+            }
+        }
+
+        // Permet de valider en appuyant sur la touche Entrée
+        document.getElementById('nameInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                verifierNom();
+            }
+        });
+    </script>
+
+</body>
+</html>
